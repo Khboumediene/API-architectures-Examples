@@ -1,0 +1,5 @@
+com\example\server\Server.class
+com\example\model\Product.class
+com\example\service\ProductService.class
+com\example\service\ProductServiceImpl.class
+com\example\repository\ProductRepository.class
