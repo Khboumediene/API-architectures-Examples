@@ -31,11 +31,13 @@ public class ProductRepository {
         }
     }
 
-    public Product findById(int id) {
-        return getAll().stream()
-                .filter(p -> p.getId() == id)
-                .findFirst()
-                .orElse(null);
+    public Optional<Product> findById(int id) {
+    List<Product> products = getAll();
+
+    return products.stream()
+        .filter(Objects::nonNull)
+        .filter(p -> p.getId() == id)
+        .findFirst();
     }
 
     public void save(Product product) {
@@ -44,17 +46,22 @@ public class ProductRepository {
         saveAll(products);
     }
 
-    public void update(Product updated) {
+    public String update(Product updated) {
         List<Product> products = new ArrayList<>(getAll());
-
+        boolean found = false;
         for (Product p : products) {
             if (p.getId() == updated.getId()) {
                 p.setName(updated.getName());
                 p.setPrice(updated.getPrice());
+                found = true;
+                break; 
             }
         }
-
+        if (!found) {
+            return "Product not found";
+        }
         saveAll(products);
+        return "Product updated successfully";
     }
 
     public void delete(int id) {

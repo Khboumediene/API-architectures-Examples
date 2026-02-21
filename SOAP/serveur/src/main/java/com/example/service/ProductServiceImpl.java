@@ -18,7 +18,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProductById(int id) {
-        return repo.findById(id);
+        return repo.findById(id).orElse(null);
     }
 
     @Override
@@ -29,8 +29,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public String updateProduct(Product product) {
-        repo.update(product);
-        return "Product updated successfully";
+        return repo.update(product);
     }
 
     @Override

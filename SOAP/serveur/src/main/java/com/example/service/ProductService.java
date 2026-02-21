@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.model.Product;
 
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import java.util.List;
 
@@ -13,14 +14,14 @@ public interface ProductService {
     List<Product> getAllProducts();
 
     @WebMethod
-    Product getProductById(int id);
+    Product getProductById(@WebParam(name = "id") int id);
 
     @WebMethod
-    String addProduct(Product product);
+    String addProduct(@WebParam(name = "product") Product product);
 
     @WebMethod
-    String updateProduct(Product product);
+    String updateProduct(@WebParam(name = "product") Product product);
 
     @WebMethod
-    String deleteProduct(int id);
+    String deleteProduct(@WebParam(name = "id") int id);
 }

@@ -115,3 +115,11 @@ Repository (JSON)
      ▼
 products.json
 ```
+
+## 📄 Test et Documentation
+
+<p align="center">
+  <a href="https://app.getpostman.com/run-collection/31975823-ef9990b0-5cd0-460e-8fd7-a8bf69eabaa0?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D31975823-ef9990b0-5cd0-460e-8fd7-a8bf69eabaa0%26entityType%3Dcollection%26workspaceId%3D3bba11da-f14b-486b-bcf3-17227a7cdff0">
+    <img src="https://run.pstmn.io/button.svg" alt="Run In Postman" width="128" height="32">
+  </a>
+</p>
