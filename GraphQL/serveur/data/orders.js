@@ -1,1 +1,0 @@
-export const orders = [{ id: "1", userId: "1", productIds: ["1", "2"] }];

@@ -1,102 +1,118 @@
 # 📦 GraphQL Product Service (JavaScript)
 
-Ce projet fournit une **API GraphQL** pour gérer des **produits, utilisateurs et commandes** avec Node.js et **Apollo Server**. Les données sont simulées avec des fichiers JS objects.
+Ce projet fournit une **API GraphQL** pour gérer des utilisateurs, produits et commandes avec **Node.js**, **Express** et **Apollo Server**, en utilisant des **fichiers JSON** comme source de données.
 
-L’API illustre les avantages de GraphQL : un seul endpoint, requêtes imbriquées, flexibilité sur les champs retournés et CRUD complet.
+Il inclut aussi un **client Node.js** pour tester :
+
+- **Query**
+- **Mutation**
+- **Subscription en temps réel** (`productCreated`) via **graphql-ws**.
 
 ---
 
 ## 🚀 Stack Technique
 
-- Node.js
-- :contentReference[oaicite:0]{index=0}
-- GraphQL
-- UUID pour les IDs uniques
-- Apollo Server / Client
+- **Node.js** (ES Modules)
+- **Express.js**
+- **Apollo Server**
+- **GraphQL**
+- **graphql-ws** + **ws** (WebSocket subscriptions)
+- **@graphql-tools/schema**
+- **uuid**
 
 ---
 
 ## 📁 Structure du Projet
 
-### 🔹 Serveur
-
-```
-serveur/
-│
-├── data/
-│   ├── users.js       # Données utilisateurs simulées
-│   ├── products.js    # Données produits simulées
-│   └── orders.js      # Données commandes simulées
-│
-├── schema/
-│   ├── typeDefs.js    # Schéma GraphQL
-│   └── resolvers.js   # Resolvers GraphQL
-│
-├── server.js          # Serveur Apollo
-└── package.json       # Dépendances et scripts
-
-```
-
-### 🔹 Client
-
-```
-client/
-├── client.js          # Client Apollo
-└── package.json       # Dépendances et scripts
-
+```text
+project/
++-- data/
+│       +-- users.json
+│       +-- products.json
+│       +-- orders.json
++-- schema/
+│       +-- typeDefs.js
+│       +-- resolvers.js
++-- utils/
+│       +-- file.js
+│       +-- pubsub.js
++-- server.js
++-- client.js
++-- package.json
 ```
 
 ---
 
 ## ⚙️ Installation & Exécution
 
-### Serveur
+### 1. Installer les dépendances
 
 ```bash
-cd ./serveur
 npm install
-npm run start
 ```
 
-### Client
+### 2. Lancer le serveur GraphQL
 
 ```bash
-cd ./client
-npm install
-npm run start
+npm start
 ```
+
+Le serveur expose :
+
+- **HTTP**: `http://localhost:4000/graphql`
+- **WS**: `ws://localhost:4000/graphql`
+
+### 3. Tester avec le client Node.js
+
+Dans un autre terminal :
+
+```bash
+node client.js
+```
+
+Le client :
+
+1. Se connecte au WebSocket
+2. Lance la subscription `productCreated`
+3. Attend 2 secondes
+4. Exécute la mutation `createProduct`
+5. Affiche l'événement recu en temps réel
 
 ---
 
-## 🔗 Fonctionnalités du Service
+## 🔗 Fonctionnalités
 
-### ✅ Queries
+### Queries
 
-| Requête            | Description                                                               |
-| ------------------ | ------------------------------------------------------------------------- |
-| `users`            | Récupérer tous les utilisateurs avec leurs commandes et produits associés |
-| `user(id: ID!)`    | Récupérer un utilisateur par ID                                           |
-| `products`         | Récupérer tous les produits                                               |
-| `product(id: ID!)` | Récupérer un produit par ID                                               |
-| `orders`           | Récupérer toutes les commandes avec les utilisateurs et produits associés |
-| `order(id: ID!)`   | Récupérer une commande par ID                                             |
+| Opération     | Description                     |
+| ------------- | ------------------------------- |
+| `users`       | Récupérer tous les utilisateurs |
+| `products`    | Récupérer tous les produits     |
+| `orders`      | Récupérer toutes les commandes  |
+| `user(id)`    | Récupérer un utilisateur par ID |
+| `product(id)` | Récupérer un produit par ID     |
+| `order(id)`   | Récupérer une commande par ID   |
 
-### ✅ Mutations
+### Mutations
 
-| Mutation                                | Description                                      |
-| --------------------------------------- | ------------------------------------------------ |
-| `createUser(name, email)`               | Créer un nouvel utilisateur                      |
-| `updateUser(id, name?, email?)`         | Mettre à jour un utilisateur                     |
-| `deleteUser(id)`                        | Supprimer un utilisateur et ses commandes        |
-| `createProduct(name, price)`            | Créer un nouveau produit                         |
-| `updateProduct(id, name?, price?)`      | Mettre à jour un produit                         |
-| `deleteProduct(id)`                     | Supprimer un produit et le retirer des commandes |
-| `createOrder(userId, productIds)`       | Créer une nouvelle commande                      |
-| `updateOrder(id, userId?, productIds?)` | Mettre à jour une commande                       |
-| `deleteOrder(id)`                       | Supprimer une commande                           |
+| Opération                                           | Description      |
+| --------------------------------------------------- | ---------------- |
+| `createUser` / `updateUser` / `deleteUser`          | CRUD utilisateur |
+| `createProduct` / `updateProduct` / `deleteProduct` | CRUD produit     |
+| `createOrder` / `updateOrder` / `deleteOrder`       | CRUD commande    |
+
+### Subscription
+
+| Opération        | Description                                             |
+| ---------------- | ------------------------------------------------------- |
+| `productCreated` | événement temps réel déclenché a chaque `createProduct` |
 
 ---
 
-## 📄 Test et Documentation
+## Relations GraphQL
 
-Tu peux utiliser **Apollo Explorer**
+- `User.orders` ? liste des commandes d'un utilisateur
+- `Order.user` ? utilisateur propriétaire de la commande
+- `Order.products` ? produits inclus dans la commande
+
+---

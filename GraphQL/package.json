@@ -1,0 +1,20 @@
+{
+  "name": "graphql-realtime-api",
+  "version": "1.0.0",
+  "description": "GraphQL API with Apollo Server, Express and graphql-ws subscriptions",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.11.0",
+    "@graphql-tools/schema": "^10.0.16",
+    "express": "^4.21.2",
+    "graphql": "^16.9.0",
+    "graphql-ws": "^5.16.2",
+    "uuid": "^11.0.5",
+    "ws": "^8.18.0"
+  }
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "name": "Laptop",
+    "price": 1200
+  },
+  {
+    "id": "2",
+    "name": "Phone",
+    "price": 800
+  },
+  {
+    "id": "1abc3abb-c619-450c-921a-3a6034c0edac",
+    "name": "Tablet",
+    "price": 900
+  },
+  {
+    "id": "dac05bc1-456a-4ace-896e-3085b3ce6416",
+    "name": "Product-1772118661755",
+    "price": 999.99
+  }
+]

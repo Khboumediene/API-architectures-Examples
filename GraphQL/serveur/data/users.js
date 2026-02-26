@@ -1,4 +1,0 @@
-export const users = [
-  { id: "1", name: "Ali", email: "ali@mail.com" },
-  { id: "2", name: "Sara", email: "sara@mail.com" },
-];
